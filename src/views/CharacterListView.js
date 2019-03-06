@@ -1,12 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from "react"
+import { connect } from "react-redux"
 
-import { CharacterList } from "../components";
+import { CharacterList } from "../components"
 // import actions
 
 class CharacterListView extends React.Component {
   constructor() {
-    super();
+    super()
   }
 
   componentDidMount() {
@@ -21,7 +21,7 @@ class CharacterListView extends React.Component {
       <div className="CharactersList_wrapper">
         <CharacterList characters={this.props.characters} />
       </div>
-    );
+    )
   }
 }
 
@@ -32,4 +32,4 @@ export default connect(
   {
     /* action creators go here */
   }
-)(CharacterListView);
+)(CharacterListView)
