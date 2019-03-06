@@ -8,6 +8,10 @@ export class Right {
   map(f) {
     return Right.of(f(this.value))
   }
+  // chain :: (a -> Either b) ~> Either a -> Either b
+  chain(f) {
+    return f(this.value)
+  }
 }
 
 export class Left {
@@ -20,15 +24,19 @@ export class Left {
   map(_) {
     return this
   }
+  // chain :: (a -> Either b) ~> Either a -> Either b
+  chain(_) {
+    return this
+  }
 }
 
-export const either = f => g => ({ constructor, value }) => {
+export const either = (f, g) => ({ constructor, value }) => {
   switch (constructor) {
     case Left:
       return f(value)
     case Right:
       return g(value)
     default:
-      throw new Error("Constructor is not a valid Either type")
+      throw new Error(`${constructor} is not a valid Maybe type`)
   }
 }

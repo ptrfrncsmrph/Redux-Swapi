@@ -14,12 +14,14 @@ export const FAILURE = "FAILURE"
 
 export const fetchFrom = url => dispatch => {
   dispatch({ type: FETCHING })
-  axios
-    .get(url)
-    .then(({ data }) => {
-      dispatch({ type: SUCCESS, payload: data })
-    })
-    .catch(err => {
-      dispatch({ type: FAILURE, payload: err })
-    })
+  setTimeout(() => {
+    axios
+      .get(url)
+      .then(({ data }) => {
+        dispatch({ type: SUCCESS, payload: data })
+      })
+      .catch(err => {
+        dispatch({ type: FAILURE, payload: err })
+      })
+  }, 5000)
 }
