@@ -24,9 +24,9 @@ export class Left {
 
 export const either = f => g => ({ constructor, value }) => {
   switch (constructor) {
-    case Right:
-      return f(value)
     case Left:
+      return f(value)
+    case Right:
       return g(value)
     default:
       throw new Error("Constructor is not a valid Either type")
