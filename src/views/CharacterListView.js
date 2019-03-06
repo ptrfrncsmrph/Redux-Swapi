@@ -8,7 +8,7 @@ import { fetchFrom } from "../actions"
 
 const CharacterListView = ({ characters, fetchFrom }) => {
   useEffect(() => {
-    fetchFrom("https://swapi.co/api/people/x")
+    fetchFrom("https://swapi.co/api/people/")
   }, [])
   return either(err => (
     <>
