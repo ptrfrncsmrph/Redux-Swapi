@@ -12,9 +12,6 @@ export class Just {
   chain(f) {
     return f(this.value)
   }
-  fromJust() {
-    return this.value
-  }
 }
 
 export class Nothing {
@@ -43,5 +40,3 @@ export const maybe = (x, fn) => ({ constructor, value }) => {
       throw new Error(`${constructor} is not a valid Maybe type`)
   }
 }
-
-export const fromJust = J => J.fromJust()

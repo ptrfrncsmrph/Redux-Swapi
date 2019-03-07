@@ -37,6 +37,6 @@ export const either = (f, g) => ({ constructor, value }) => {
     case Right:
       return g(value)
     default:
-      throw new Error(`${constructor} is not a valid Maybe type`)
+      throw new Error(`${constructor} is not a valid Either type`)
   }
 }
