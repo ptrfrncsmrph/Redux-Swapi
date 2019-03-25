@@ -1,35 +1,40 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react"
+import { connect } from "react-redux"
+import { either, maybe } from "../lib"
 
-import { CharacterList } from "../components";
-// import actions
+import { ErrorPre } from "../components"
+import { CharacterList } from "../components"
+import { fetchFrom } from "../actions"
 
-class CharacterListView extends React.Component {
-  constructor() {
-    super();
-  }
+const validURL = "https://swapi.co/api/people/"
+const invalidURL = "https://swi.co/api/people/"
 
-  componentDidMount() {
-    // call our action
-  }
+const onError = err => (
+  <>
+    <h3 style={{ color: "tomato" }}>Error</h3>
+    <ErrorPre err={err} />
+  </>
+)
 
-  render() {
-    if (this.props.fetching) {
-      // return something here to indicate that you are fetching data
-    }
-    return (
-      <div className="CharactersList_wrapper">
-        <CharacterList characters={this.props.characters} />
-      </div>
-    );
-  }
+const onLoading = <h3>Loading...</h3>
+
+const onSuccess = maybe(onLoading, data => (
+  <>
+    <h3>Success</h3>
+    <CharacterList characters={data.results} />
+  </>
+))
+
+const CharacterListView = ({ characters, fetchFrom }) => {
+  useEffect(() => {
+    fetchFrom(validURL)
+  }, [])
+  return either(onError, onSuccess)(characters)
 }
 
-// our mapStateToProps needs to have two properties inherited from state
-// the characters and the fetching boolean
 export default connect(
-  null /* mapStateToProps replaces null here */,
+  ({ characters }) => ({ characters }),
   {
-    /* action creators go here */
+    fetchFrom
   }
-)(CharacterListView);
+)(CharacterListView)
